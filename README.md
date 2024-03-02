@@ -1,21 +1,21 @@
-Enviador de Mensajes por Teclas en LAN
+# Enviador de Mensajes por Teclas en LAN
 
 El Enviador de Mensajes por Teclas en LAN es una herramienta que envía mensajes capturados mediante pulsaciones de teclas en una red local. Utiliza un servidor Node.js y un cliente Python para capturar y enviar los mensajes de manera remota. Este software es útil para enviar mensajes entre dispositivos en una red local, pero se debe utilizar con responsabilidad y respetando la privacidad de los usuarios.
-Requerimientos
 
-    Tener instalado Node.js 20.11.1 o versiones similares.
-    Tener instalado Python 3.12.2.
-    Tener el firewall configurado para permitir la entrada y salida de puertos en la máquina servidor y cliente.
-    Sistema Operativo Windows 10/11 de 64 bits.
+## Requerimientos
 
-Instalación
+- Tener instalado Node.js 20.11.1 o versiones similares.
+- Tener instalado Python 3.12.2.
+- Tener el firewall configurado para permitir la entrada y salida de puertos en la máquina servidor y cliente.
+- Sistema Operativo Windows 10/11 de 64 bits.
+
+## Instalación
 
 Sigue estos pasos para instalar y configurar el proyecto:
 
-    Clonar el repositorio desde GitHub:
+1. **Clonar el repositorio desde GitHub:** 
 
-bash
-
+```bash
 git clone https://github.com/joscarbaj/Keylogger-LAN.git
 
 O descargar el repositorio.
